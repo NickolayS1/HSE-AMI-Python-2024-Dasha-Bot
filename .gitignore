@@ -1,2 +1,2 @@
-bot/.env
-database/telegram_database.db
+/bot/.env
+/database/telegram_database.db
