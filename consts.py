@@ -12,4 +12,3 @@ class UserTypes(Enum):
 class DataBaseResponses(Enum):
     SUCCESS = "operation successful"
     ERROR = "operation unsuccessful"
-    IS_BAN = "user goes to ban"
