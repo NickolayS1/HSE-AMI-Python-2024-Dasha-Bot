@@ -5,10 +5,10 @@ class GroupTypes(Enum):
     BLACK = "Black list based group"
 
 class UserTypes(Enum):
-    IN_BLACKLIST = "User is in the black list of this group"
-    IN_WHITELIST = "User is in the white list of this grop"
-    MODERATOR = "User is moderator"
-    COMMON = "User is common"
+    IN_BLACKLIST = "0"
+    COMMON = "1"
+    IN_WHITELIST = "2"
+    MODERATOR = "3"
 
 class DataBaseResponses(Enum):
     SUCCESS = "operation successful"

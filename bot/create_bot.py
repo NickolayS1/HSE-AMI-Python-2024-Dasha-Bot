@@ -6,7 +6,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from decouple import config
 from database.data_handler import DataBase
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s -%(levelname)s - %(message)s')
+logging.basicConfig(filename='logs.log', level=logging.INFO, format='%(asctime)s - %(name)s -%(levelname)s - %(message)s')
 logger = logging.getLogger("logs")
 
 database = DataBase()

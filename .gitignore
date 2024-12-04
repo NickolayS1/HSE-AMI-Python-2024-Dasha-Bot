@@ -1,2 +1,8 @@
 bot/.env
+bot/__pycache__
+bot/group/__pycache__
+__pycache__
+.vscode
 database/telegram_database.db
+telegram_database.db
+logs.log
