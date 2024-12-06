@@ -3,26 +3,26 @@ from consts import GroupTypes
 from consts import UserTypes
 import aiosqlite
 import os
-import asyncio
-
 
 class DataBase:
-    def __init__(self):
-        self.db_path = 'telegram_database.db'
-        self.create_database()
+    def __init__(self, db_path='telegram_database.db'):
+        self.db_path = db_path
 
-    def create_database(self) -> DataBaseResponses:
+    async def initialize(self) -> DataBaseResponses:
+        return await self.create_database()
+
+    async def create_database(self) -> DataBaseResponses:
         if not os.path.exists(self.db_path):
-            with aiosqlite.connect(self.db_path) as conn:
-                cursor = conn.cursor()
-                cursor.execute('''
+            async with aiosqlite.connect(self.db_path) as conn:
+                cursor = await conn.cursor()
+                await cursor.execute('''
                     CREATE TABLE Groups (
                         group_id INTEGER PRIMARY KEY,
                         group_type TEXT,
                         max_group_warns INTEGER
                     )
                 ''')
-                cursor.execute('''
+                await cursor.execute('''
                     CREATE TABLE Users (
                         group_id INTEGER,
                         user_id INTEGER,
@@ -32,7 +32,7 @@ class DataBase:
                         FOREIGN KEY (group_id) REFERENCES Groups(group_id)
                     )
                 ''')
-                conn.commit()
+                await conn.commit()
         return DataBaseResponses.SUCCESS
 
     async def get_type_of_group(self, group_id: int) -> DataBaseResponses:
@@ -42,7 +42,6 @@ class DataBase:
         async with aiosqlite.connect(self.db_path) as conn:
             cursor = await conn.execute("SELECT group_type FROM Groups WHERE group_id=?", (group_id,))
             result = await cursor.fetchone()
-            return DataBaseResponses.SUCCESS
             return DataBaseResponses.SUCCESS if result else DataBaseResponses.ERROR
 
     async def set_type_of_group(self, group_id: int, group_type: GroupTypes) -> DataBaseResponses:
